@@ -4,9 +4,12 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAuth } from '@/hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+const videoSource = 'https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/bowmaylada.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhL2Jvd21heWxhZGEubXA0IiwiaWF0IjoxNzcxMzE2NjkzLCJleHAiOjE4MDI4NTI2OTN9.29W-0RsDkdiFVjRpdlSH66DglFI2us91hvvFKemKK2A';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -15,6 +18,12 @@ export default function LoginScreen() {
   const colorScheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
   const colors = Colors[colorScheme];
   const router = useRouter();
+
+  const player = useVideoPlayer(videoSource, (player) => {
+    player.loop = true;
+    player.play();
+    player.muted = true;
+  });
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -32,6 +41,14 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <VideoView
+        style={styles.videoBackground}
+        player={player}
+        allowsFullscreen={false}
+        allowsPictureInPicture={false}
+      />
+      <View style={styles.overlay} />
+      
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
@@ -103,6 +120,15 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  videoBackground: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: -1,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.45)', // Adjust opacity to control brightness
+    zIndex: 0,
   },
   scrollContent: {
     flexGrow: 1,
