@@ -1,112 +1,211 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Alert, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+import { Colors, Fonts } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useAuth } from '@/hooks/useAuth';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function TabTwoScreen() {
+export default function ProfileScreen() {
+  const { user, logout } = useAuth();
+  const colorScheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
+  const colors = Colors[colorScheme];
+  const router = useRouter();
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to log out?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Logout', 
+          style: 'destructive',
+          onPress: async () => {
+            await logout();
+            router.replace('/auth/login');
+          }
+        },
+      ]
+    );
+  };
+
+  const ProfileStat = ({ label, value }: { label: string; value: string | number }) => (
+    <View style={styles.statItem}>
+      <ThemedText style={styles.statValue}>{value}</ThemedText>
+      <ThemedText style={styles.statLabel}>{label}</ThemedText>
+    </View>
+  );
+
+  const MenuEntry = ({ icon, title, onPress, color }: { icon: any; title: string; onPress: () => void; color?: string }) => (
+    <TouchableOpacity style={styles.menuItem} onPress={onPress}>
+      <View style={styles.menuIconContainer}>
+        <IconSymbol name={icon} size={22} color={color || colors.text} />
+      </View>
+      <ThemedText style={[styles.menuTitle, color ? { color } : {}]}>{title}</ThemedText>
+      <IconSymbol name="chevron.right" size={20} color={colors.icon} />
+    </TouchableOpacity>
+  );
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Header / Avatar Section */}
+        <View style={styles.header}>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={{ uri: user?.avatar_url || 'https://via.placeholder.com/150' }}
+              style={styles.avatar}
+            />
+            <TouchableOpacity style={[styles.editBadge, { backgroundColor: colors.gold }]}>
+              <IconSymbol name="plus.circle.fill" size={18} color="white" />
+            </TouchableOpacity>
+          </View>
+          <ThemedText type="title" style={styles.userName}>
+            {user?.full_name || 'Guest User'}
+          </ThemedText>
+          <ThemedText style={styles.userRole}>
+            {user?.role === 'model' ? 'Professional Model' : 'Photographer'}
+          </ThemedText>
+        </View>
+
+        {/* Stats Section */}
+        <View style={[styles.statsContainer, { backgroundColor: colors.secondary }]}>
+          <ProfileStat label="Bookings" value={12} />
+          <View style={styles.statDivider} />
+          <ProfileStat label="Rating" value="4.9" />
+          <View style={styles.statDivider} />
+          <ProfileStat label="Reviews" value={45} />
+        </View>
+
+        {/* Menu Section */}
+        <View style={styles.menuSection}>
+          <ThemedText style={styles.sectionTitle}>Account</ThemedText>
+          <MenuEntry icon="person.fill" title="Edit Profile" onPress={() => {}} />
+          <MenuEntry icon="bell.fill" title="Notifications" onPress={() => {}} />
+          <MenuEntry icon="gearshape.fill" title="Settings" onPress={() => {}} />
+        </View>
+
+        <View style={styles.menuSection}>
+          <ThemedText style={styles.sectionTitle}>Support</ThemedText>
+          <MenuEntry icon="paperplane.fill" title="Help Center" onPress={() => {}} />
+          <MenuEntry icon="logout.fill" title="Logout" onPress={handleLogout} color="#FF3B30" />
+        </View>
+
+        <View style={styles.footer}>
+          <ThemedText style={styles.versionText}>LensFolio v1.0.0</ThemedText>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
   },
-  titleContainer: {
+  header: {
+    alignItems: 'center',
+    paddingVertical: 30,
+  },
+  avatarContainer: {
+    position: 'relative',
+    marginBottom: 16,
+  },
+  avatar: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 4,
+    borderColor: '#D4AF37',
+  },
+  editBadge: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: 'white',
+  },
+  userName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  userRole: {
+    fontSize: 16,
+    color: '#888',
+    fontFamily: Fonts.rounded,
+  },
+  statsContainer: {
     flexDirection: 'row',
-    gap: 8,
+    marginHorizontal: 20,
+    borderRadius: 20,
+    padding: 20,
+    justifyContent: 'space-around',
+    marginBottom: 30,
+  },
+  statItem: {
+    alignItems: 'center',
+  },
+  statValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  statLabel: {
+    fontSize: 12,
+    color: '#888',
+    marginTop: 4,
+  },
+  statDivider: {
+    width: 1,
+    height: '60%',
+    backgroundColor: '#ccc',
+    alignSelf: 'center',
+  },
+  menuSection: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 14,
+    color: '#888',
+    marginBottom: 10,
+    marginLeft: 5,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    borderRadius: 15,
+    marginBottom: 8,
+  },
+  menuIconContainer: {
+    width: 32,
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  menuTitle: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  footer: {
+    alignItems: 'center',
+    paddingVertical: 30,
+  },
+  versionText: {
+    color: '#888',
+    fontSize: 12,
   },
 });
