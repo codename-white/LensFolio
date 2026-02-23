@@ -6,6 +6,8 @@ import { useColorScheme } from '../../hooks/use-color-scheme';
 import { ModelProfile } from '../../types';
 import { ImageOptimized } from '../common/ImageOptimized';
 
+import { resolveImageSource } from '../../utils/imageResolver';
+
 interface ModelCardProps {
   model: ModelProfile;
   onPress?: () => void;
@@ -25,7 +27,7 @@ export const ModelCard: React.FC<ModelCardProps> = React.memo(({ model, onPress 
     >
       <View style={styles.imageContainer}>
         <ImageOptimized
-          source={{ uri: model.portfolio_images[0] }}
+          source={resolveImageSource(model.portfolio_images[0])}
           style={styles.image}
         />
         <View style={styles.ratingBadge}>

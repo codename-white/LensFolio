@@ -41,10 +41,10 @@ TRUNCATE profiles, model_details, recommended_locations CASCADE;
 -- 5. สร้างข้อมูลโปรไฟล์คนดัง (Thai Public Figures - Real Assets)
 INSERT INTO profiles (id, email, full_name, role, avatar_url, account_status)
 VALUES 
-('d1b1f9d7-26fa-46b9-8676-9e9248f189e5', 'yaya@lensfolio.com', 'ญาญ่า อุรัสยา (Yaya Urassaya)', 'model', 'https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/3530859494276242860-1.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhLzM1MzA4NTk0OTQyNzYyNDI4NjAtMS5qcGciLCJpYXQiOjE3NzEyMjEyMDQsImV4cCI6MTgwMjc1NzIwNH0.U04s5l78vAFIBh7GTkp3zt76eFKVIGEsE-WzHt9LVc8', 'approved'),
-('acf52361-bed2-4962-bb26-3005f9da6019', 'baifern@lensfolio.com', 'ใบเฟิร์น พิมพ์ชนก (Baifern Pimchanok)', 'model', 'https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/631970982_1505255514303178_5161109132364188018_n.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhLzYzMTk3MDk4Ml8xNTA1MjU1NTE0MzAzMTc4XzUxNjExMDkxMzIzNjQxODgwMThfbi5qcGciLCJpYXQiOjE3NzEyMjE3NzMsImV4cCI6MTgwMjc1Nzc3M30.gyAOE3_XhjChKvUkZ17t2spHVw0d5vIk12qKa7EBRjo', 'approved'),
-('c15c8c74-d5a3-40d7-a444-5d603953067c', 'davika@lensfolio.com', 'ใหม่ ดาวิกา (Mai Davika)', 'model', 'https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/486024733_1223405599157426_1797008145638241741_n.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhLzQ4NjAyNDczM18xMjIzNDA1NTk5MTU3NDI2XzE3OTcwMDgxNDU2MzgyNDE3NDFfbi5qcGciLCJpYXQiOjE3NzEyMjE3NDQsImV4cCI6MTgwMjc1Nzc0NH0.3NNJsAbDgG30lCgsANH0imgevoehbPRpM60WbLESw6s', 'approved'),
-('e3b2c1a0-d4e5-4f6a-8b1c-9d0e1f2a3b4c', 'bow@lensfolio.com', 'โบว์ เมลดา (Bow Maylada)', 'model', 'https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/623455714_18546546931062917_9115576500169030039_n.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhLzYyMzQ1NTcxNF8xODU0NjU0NjkzMTA2MjkxN185MTE1NTc2NTAwMTY5MDMwMDM5X24uanBnIiwiaWF0IjoxNzcxMzE2NzcxLCJleHAiOjE4MDI4NTI3NzF9.DamGM9tK3Rhh-KTlAlNsQvPmbSH6BOy8CcrYpIYmEfs', 'approved');
+('d1b1f9d7-26fa-46b9-8676-9e9248f189e5', 'yaya@lensfolio.com', 'ญาญ่า อุรัสยา (Yaya Urassaya)', 'model', 'yaya.png', 'approved'),
+('acf52361-bed2-4962-bb26-3005f9da6019', 'baifern@lensfolio.com', 'ใบเฟิร์น พิมพ์ชนก (Baifern Pimchanok)', 'model', 'baifren.png', 'approved'),
+('c15c8c74-d5a3-40d7-a444-5d603953067c', 'davika@lensfolio.com', 'ใหม่ ดาวิกา (Mai Davika)', 'model', 'mai.png', 'approved'),
+('e3b2c1a0-d4e5-4f6a-8b1c-9d0e1f2a3b4c', 'bow@lensfolio.com', 'โบว์ เมลดา (Bow Maylada)', 'model', 'bow.png', 'approved');
 
 -- 6. เพิ่มรายละเอียดนางแบบ (Thai Superstars Portfolio)
 INSERT INTO model_details (id, bio, hourly_rate, rating, review_count, location_address, latitude, longitude, categories, portfolio_images)
@@ -53,25 +53,25 @@ VALUES
   'd1b1f9d7-26fa-46b9-8676-9e9248f189e5', 
   'นักแสดงและนางแบบระดับแนวหน้า เชี่ยวชาญงาน High Fashion และงานโฆษณาระดับอินเตอร์ พร้อมประสบการณ์ระดับโลก', 
   5000, 5.0, 450, 'Thonglor District', 13.7350, 100.5820,
-  ARRAY['High Fashion', 'Luxury', 'Actress'], ARRAY['https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/3530859494276242860-1.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhLzM1MzA4NTk0OTQyNzYyNDI4NjAtMS5qcGciLCJpYXQiOjE3NzEyMjEyMDQsImV4cCI6MTgwMjc1NzIwNH0.U04s5l78vAFIBh7GTkp3zt76eFKVIGEsE-WzHt9LVc8']
+  ARRAY['High Fashion', 'Luxury', 'Actress'], ARRAY['yaya.png']
 ),
 (
   'acf52361-bed2-4962-bb26-3005f9da6019', 
   'เจ้าแม่โฆษณาและนางแบบ Lifestyle เน้นความสดใสและเป็นธรรมชาติ ถ่ายทอดอารมณ์ผ่านภาพนิ่งได้อย่างดีเยี่ยม', 
   4500, 4.9, 320, 'Siam Discovery', 13.7468, 100.5303,
-  ARRAY['Commercial', 'Lifestyle', 'Fashion'], ARRAY['https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/631970982_1505255514303178_5161109132364188018_n.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhLzYzMTk3MDk4Ml8xNTA1MjU1NTE0MzAzMTc4XzUxNjExMDkxMzIzNjQxODgwMThfbi5qcGciLCJpYXQiOjE3NzEyMjE3NzMsImV4cCI6MTgwMjc1Nzc3M30.gyAOE3_XhjChKvUkZ17t2spHVw0d5vIk12qKa7EBRjo']
+  ARRAY['Commercial', 'Lifestyle', 'Fashion'], ARRAY['baifren.png']
 ),
 (
   'c15c8c74-d5a3-40d7-a444-5d603953067c', 
   'นางแบบและไอคอนแฟชั่นผู้ทรงอิทธิพล โดดเด่นด้วยลุค Editorial และงานโฆษณาแบรนด์หรูระดับเอเชีย', 
   6000, 5.0, 510, 'EmQuartier', 13.7317, 100.5694,
-  ARRAY['Editorial', 'Vogue style', 'Actress'], ARRAY['https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/293415150_593018752196117_4088828008816944394_n.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhLzI5MzQxNTE1MF81OTMwMTg3NTIxOTYxMTdfNDA4ODgyODAwODgxNjk0NDM5NF9uLmpwZyIsImlhdCI6MTc3MTMxNzE4MiwiZXhwIjoxODAyODUzMTgyfQ.o2MaWtdGYx3B9hkHwzCH_wTEgQmImegITVAtDwUZW9Y']
+  ARRAY['Editorial', 'Vogue style', 'Actress'], ARRAY['mai.png']
 ),
 (
   'e3b2c1a0-d4e5-4f6a-8b1c-9d0e1f2a3b4c', 
   'นางแบบและนักแสดงสาวสวยที่มีรอยยิ้มพราวเสน่ห์ เชี่ยวชาญงานถ่ายแบบ Fashion และ Lifestyle พร้อมบุคลิกที่โดดเด่น', 
   4800, 4.8, 280, 'Siam Paragon', 13.7462, 100.5348,
-  ARRAY['Fashion', 'Lifestyle', 'Commercial'], ARRAY['https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/623455714_18546546931062917_9115576500169030039_n.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhLzYyMzQ1NTcxNF8xODU0NjU0NjkzMTA2MjkxN185MTE1NTc2NTAwMTY5MDMwMDM5X24uanBnIiwiaWF0IjoxNzcxMzE2NzcxLCJleHAiOjE4MDI4NTI3NzF9.DamGM9tK3Rhh-KTlAlNsQvPmbSH6BOy8CcrYpIYmEfs']
+  ARRAY['Fashion', 'Lifestyle', 'Commercial'], ARRAY['bow.png']
 );
 
 -- 7. เพิ่มสถานที่แนะนำ
