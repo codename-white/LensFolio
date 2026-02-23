@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { createBooking } from '@/services/bookingService';
 import { getModelById } from '@/services/modelService';
 import { ModelProfile } from '@/types';
+import { resolveImageSource } from '@/utils/imageResolver';
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
@@ -116,7 +117,14 @@ export default function ModelDetailScreen() {
       <Stack.Screen options={{ title: model.full_name || 'Model Detail', headerShown: true, headerTintColor: colors.gold }} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
-          <ImageOptimized source={{ uri: model.portfolio_images[0] }} style={styles.image} />
+          <ImageOptimized 
+            source={resolveImageSource(
+              (model.portfolio_images && model.portfolio_images.length > 0) 
+                ? model.portfolio_images[0] 
+                : model.avatar_url
+            )} 
+            style={styles.image} 
+          />
         </View>
 
         <View style={styles.infoSection}>

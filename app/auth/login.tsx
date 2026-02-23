@@ -55,8 +55,8 @@ export default function LoginScreen() {
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.header}>
-            <ThemedText type="title" style={[styles.title, { color: colors.gold }]}>Ultron Welcomes You</ThemedText>
-            <ThemedText style={styles.subtitle}>Enter the perfection of LensFolio</ThemedText>
+            <ThemedText type="title" style={[styles.title, { color: colors.gold }]}>Welcome You</ThemedText>
+            <ThemedText style={styles.subtitle}>LensFolio</ThemedText>
           </View>
 
           <View style={styles.form}>
