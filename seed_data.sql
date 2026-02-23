@@ -41,10 +41,10 @@ TRUNCATE profiles, model_details, recommended_locations CASCADE;
 -- 5. สร้างข้อมูลโปรไฟล์คนดัง (Thai Public Figures - Real Assets)
 INSERT INTO profiles (id, email, full_name, role, avatar_url, account_status)
 VALUES 
-('d1b1f9d7-26fa-46b9-8676-9e9248f189e5', 'yaya@lensfolio.com', 'ญาญ่า อุรัสยา (Yaya Urassaya)', 'model', 'yaya.png', 'approved'),
-('acf52361-bed2-4962-bb26-3005f9da6019', 'baifern@lensfolio.com', 'ใบเฟิร์น พิมพ์ชนก (Baifern Pimchanok)', 'model', 'baifren.png', 'approved'),
-('c15c8c74-d5a3-40d7-a444-5d603953067c', 'davika@lensfolio.com', 'ใหม่ ดาวิกา (Mai Davika)', 'model', 'mai.png', 'approved'),
-('e3b2c1a0-d4e5-4f6a-8b1c-9d0e1f2a3b4c', 'bow@lensfolio.com', 'โบว์ เมลดา (Bow Maylada)', 'model', 'bow.png', 'approved');
+('d1b1f9d7-26fa-46b9-8676-9e9248f189e5', 'yaya@lensfolio.com', 'ญาญ่า อุรัสยา (Yaya Urassaya)', 'model', 'yaya.jpg', 'approved'),
+('acf52361-bed2-4962-bb26-3005f9da6019', 'baifern@lensfolio.com', 'ใบเฟิร์น พิมพ์ชนก (Baifern Pimchanok)', 'model', 'baifern.jpg', 'approved'),
+('c15c8c74-d5a3-40d7-a444-5d603953067c', 'davika@lensfolio.com', 'ใหม่ ดาวิกา (Mai Davika)', 'model', 'mai.jpg', 'approved'),
+('e3b2c1a0-d4e5-4f6a-8b1c-9d0e1f2a3b4c', 'bow@lensfolio.com', 'โบว์ เมลดา (Bow Maylada)', 'model', 'bow.jpg', 'approved');
 
 -- 6. เพิ่มรายละเอียดนางแบบ (Thai Superstars Portfolio)
 INSERT INTO model_details (id, bio, hourly_rate, rating, review_count, location_address, latitude, longitude, categories, portfolio_images)
@@ -53,25 +53,25 @@ VALUES
   'd1b1f9d7-26fa-46b9-8676-9e9248f189e5', 
   'นักแสดงและนางแบบระดับแนวหน้า เชี่ยวชาญงาน High Fashion และงานโฆษณาระดับอินเตอร์ พร้อมประสบการณ์ระดับโลก', 
   5000, 5.0, 450, 'Thonglor District', 13.7350, 100.5820,
-  ARRAY['High Fashion', 'Luxury', 'Actress'], ARRAY['yaya.png']
+  ARRAY['High Fashion', 'Luxury', 'Actress'], ARRAY['yaya.jpg']
 ),
 (
   'acf52361-bed2-4962-bb26-3005f9da6019', 
   'เจ้าแม่โฆษณาและนางแบบ Lifestyle เน้นความสดใสและเป็นธรรมชาติ ถ่ายทอดอารมณ์ผ่านภาพนิ่งได้อย่างดีเยี่ยม', 
   4500, 4.9, 320, 'Siam Discovery', 13.7468, 100.5303,
-  ARRAY['Commercial', 'Lifestyle', 'Fashion'], ARRAY['baifren.png']
+  ARRAY['Commercial', 'Lifestyle', 'Fashion'], ARRAY['baifern.jpg']
 ),
 (
   'c15c8c74-d5a3-40d7-a444-5d603953067c', 
   'นางแบบและไอคอนแฟชั่นผู้ทรงอิทธิพล โดดเด่นด้วยลุค Editorial และงานโฆษณาแบรนด์หรูระดับเอเชีย', 
   6000, 5.0, 510, 'EmQuartier', 13.7317, 100.5694,
-  ARRAY['Editorial', 'Vogue style', 'Actress'], ARRAY['mai.png']
+  ARRAY['Editorial', 'Vogue style', 'Actress'], ARRAY['mai.jpg']
 ),
 (
   'e3b2c1a0-d4e5-4f6a-8b1c-9d0e1f2a3b4c', 
   'นางแบบและนักแสดงสาวสวยที่มีรอยยิ้มพราวเสน่ห์ เชี่ยวชาญงานถ่ายแบบ Fashion และ Lifestyle พร้อมบุคลิกที่โดดเด่น', 
   4800, 4.8, 280, 'Siam Paragon', 13.7462, 100.5348,
-  ARRAY['Fashion', 'Lifestyle', 'Commercial'], ARRAY['bow.png']
+  ARRAY['Fashion', 'Lifestyle', 'Commercial'], ARRAY['bow.jpg']
 );
 
 -- 7. เพิ่มสถานที่แนะนำ

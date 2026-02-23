@@ -98,24 +98,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     if (error) throw error;
-
-    if (data.user) {
-      // Create profile in our profiles table
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert([
-          {
-            id: data.user.id,
-            email,
-            full_name: fullName,
-            role: role,
-            account_status: 'pending',
-          },
-        ]);
-
-      
-      if (profileError) throw profileError;
-    }
+    // Note: Profiles and model_details are now handled by a Database Trigger 
+    // for better security and reliability.
   };
 
   const logout = async () => {

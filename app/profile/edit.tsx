@@ -22,6 +22,7 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAuth } from '@/hooks/useAuth';
 import { getMyModelDetails, updateModelDetails, updateProfile, uploadImage } from '@/services/profileService';
+import { resolveImageSource } from '@/utils/imageResolver';
 
 export default function EditProfileScreen() {
   const { user, refreshUser } = useAuth();
@@ -153,7 +154,7 @@ export default function EditProfileScreen() {
           <View style={styles.avatarSection}>
             <TouchableOpacity onPress={() => pickImage('avatar')} style={styles.avatarContainer}>
               <Image 
-                source={{ uri: avatarUri || user?.avatar_url || 'https://via.placeholder.com/150' }} 
+                source={avatarUri ? { uri: avatarUri } : resolveImageSource(user?.avatar_url)} 
                 style={styles.avatar} 
               />
               <View style={[styles.editBadge, { backgroundColor: colors.gold }]}>

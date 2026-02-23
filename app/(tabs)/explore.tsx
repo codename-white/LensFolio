@@ -8,6 +8,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors, Fonts } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAuth } from '@/hooks/useAuth';
+import { resolveImageSource } from '@/utils/imageResolver';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProfileScreen() {
@@ -58,7 +59,7 @@ export default function ProfileScreen() {
         <View style={styles.header}>
           <View style={styles.avatarContainer}>
             <Image
-              source={{ uri: user?.avatar_url || 'https://via.placeholder.com/150' }}
+              source={resolveImageSource(user?.avatar_url)}
               style={styles.avatar}
             />
             <TouchableOpacity style={[styles.editBadge, { backgroundColor: colors.gold }]}>

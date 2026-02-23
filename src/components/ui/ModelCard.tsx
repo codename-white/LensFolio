@@ -27,7 +27,11 @@ export const ModelCard: React.FC<ModelCardProps> = React.memo(({ model, onPress 
     >
       <View style={styles.imageContainer}>
         <ImageOptimized
-          source={resolveImageSource(model.portfolio_images[0])}
+          source={resolveImageSource(
+            (model.portfolio_images && model.portfolio_images.length > 0) 
+              ? model.portfolio_images[0] 
+              : model.avatar_url
+          )}
           style={styles.image}
         />
         <View style={styles.ratingBadge}>

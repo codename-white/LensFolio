@@ -12,6 +12,7 @@ export const getModels = async (): Promise<ModelProfile[]> => {
         account_status
       )
     `)
+    // Filter for approved models only to ensure quality on Home screen
     .eq('profiles.account_status', 'approved');
 
   if (error) throw error;

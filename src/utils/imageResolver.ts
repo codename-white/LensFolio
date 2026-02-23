@@ -4,11 +4,16 @@
  */
 
 const LOCAL_MODELS: Record<string, any> = {
-  'yaya.png': require('../assets/model/yaya.png'),
-  'baifren.png': require('../assets/model/baifren.png'),
-  'baifern.png': require('../assets/model/baifren.png'), // Handle common spelling variations
-  'mai.png': require('../assets/model/mai.png'),
-  'bow.png': require('../assets/model/bow.png'),
+  'yaya.jpg': require('../assets/model/yaya.jpg'),
+  'yaya.png': require('../assets/model/yaya.jpg'),
+  'baifern.jpg': require('../assets/model/baifern.jpg'),
+  'baifern.png': require('../assets/model/baifern.jpg'),
+  'baifren.jpg': require('../assets/model/baifern.jpg'),
+  'baifren.png': require('../assets/model/baifern.jpg'),
+  'mai.jpg': require('../assets/model/mai.jpg'),
+  'mai.png': require('../assets/model/mai.jpg'),
+  'bow.jpg': require('../assets/model/bow.jpg'),
+  'bow.png': require('../assets/model/bow.jpg'),
 };
 
 /**
@@ -19,7 +24,7 @@ const LOCAL_MODELS: Record<string, any> = {
  * @param pathOrUrl Filename (e.g., 'yaya.png') or full URL
  */
 export const resolveImageSource = (pathOrUrl: string | undefined | null) => {
-  if (!pathOrUrl) return null;
+  if (!pathOrUrl) return { uri: 'https://via.placeholder.com/150' };
 
   // Check if it's a local model asset
   if (LOCAL_MODELS[pathOrUrl.toLowerCase()]) {

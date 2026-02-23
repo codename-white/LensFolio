@@ -1,5 +1,5 @@
+
 import { decode } from 'base64-arraybuffer';
-import * as FileSystem from 'expo-file-system';
 import { supabase } from '../lib/supabase';
 
 export interface UpdateProfileData {
@@ -16,16 +16,31 @@ export interface UpdateModelDetailsData {
   longitude?: number;
 }
 
+export interface ProfileData {
+  full_name?: string;
+  avatar_url?: string;
+}
+
 /**
  * Uploads an image to Supabase Storage
- * @param bucket Storage bucket name
- * @param path Path within the bucket (e.g., 'avatars/user-id.jpg')
- * @param uri Local file URI from image picker
  */
 export const uploadImage = async (bucket: string, path: string, uri: string): Promise<string> => {
   try {
-    const base64 = await FileSystem.readAsStringAsync(uri, {
-      encoding: 'base64',
+    // Robust approach: Fetch the local URI as a blob and convert to base64
+    // This is the most compatible way in Expo 54
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    
+    const base64 = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        // Format: data:image/jpeg;base64,/9j/4AAQ... -> extract only base64 part
+        const base64Data = result.split(',')[1];
+        resolve(base64Data);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
     });
 
     const { data, error } = await supabase.storage
