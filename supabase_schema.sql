@@ -7,6 +7,7 @@ CREATE TABLE profiles (
   full_name TEXT NOT NULL,
   role TEXT CHECK (role IN ('model', 'photographer', 'admin')) NOT NULL DEFAULT 'photographer',
   avatar_url TEXT,
+  account_status TEXT CHECK (account_status IN ('pending', 'approved', 'rejected')) DEFAULT 'pending' NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
 

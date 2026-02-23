@@ -6,11 +6,13 @@ export const getModels = async (): Promise<ModelProfile[]> => {
     .from('model_details')
     .select(`
       *,
-      profiles (
+      profiles!inner (
         full_name,
-        avatar_url
+        avatar_url,
+        account_status
       )
-    `);
+    `)
+    .eq('profiles.account_status', 'approved');
 
   if (error) throw error;
   

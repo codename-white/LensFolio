@@ -7,8 +7,9 @@ interface AuthContextType {
   session: any | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, fullName: string) => Promise<void>;
+  register: (email: string, password: string, fullName: string, role: 'model' | 'photographer') => Promise<void>;
   logout: () => Promise<void>;
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -63,7 +64,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           id: sessionUser.id,
           email: sessionUser.email || '',
           full_name: sessionUser.user_metadata?.full_name || 'New User',
-          role: 'photographer',
+          role: sessionUser.user_metadata?.role || 'photographer',
+          account_status: sessionUser.user_metadata?.account_status || 'pending',
           created_at: sessionUser.created_at,
         });
       }
@@ -82,10 +84,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error;
   };
 
-  const register = async (email: string, password: string, fullName: string) => {
+  const register = async (email: string, password: string, fullName: string, role: 'model' | 'photographer' = 'photographer') => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          full_name: fullName,
+          role: role,
+          account_status: 'pending',
+        }
+      }
     });
 
     if (error) throw error;
@@ -99,9 +108,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             id: data.user.id,
             email,
             full_name: fullName,
-            role: 'photographer', // Default
+            role: role,
+            account_status: 'pending',
           },
         ]);
+
       
       if (profileError) throw profileError;
     }
@@ -112,8 +123,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error;
   };
 
+  const refreshUser = async () => {
+    if (session?.user) {
+      await fetchProfile(session.user.id, session.user);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, session, isLoading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, session, isLoading, login, register, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

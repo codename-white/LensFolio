@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { Alert, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -72,6 +73,15 @@ export default function ProfileScreen() {
           </ThemedText>
         </View>
 
+        {user?.account_status === 'pending' && (
+          <View style={[styles.pendingBanner, { backgroundColor: colors.gold + '20' }]}>
+            <IconSymbol name="hourglass.fill" size={20} color={colors.gold} />
+            <ThemedText style={[styles.pendingText, { color: colors.gold }]}>
+              Account pending approval. You won't be visible to others yet.
+            </ThemedText>
+          </View>
+        )}
+
         {/* Stats Section */}
         <View style={[styles.statsContainer, { backgroundColor: colors.secondary }]}>
           <ProfileStat label="Bookings" value={12} />
@@ -84,7 +94,14 @@ export default function ProfileScreen() {
         {/* Menu Section */}
         <View style={styles.menuSection}>
           <ThemedText style={styles.sectionTitle}>Account</ThemedText>
-          <MenuEntry icon="person.fill" title="Edit Profile" onPress={() => {}} />
+          <MenuEntry 
+            icon="person.fill" 
+            title="Edit Profile" 
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              router.push('/profile/edit' as any);
+            }} 
+          />
           <MenuEntry icon="bell.fill" title="Notifications" onPress={() => {}} />
           <MenuEntry icon="gearshape.fill" title="Settings" onPress={() => {}} />
         </View>
@@ -143,6 +160,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#888',
     fontFamily: Fonts.rounded,
+  },
+  pendingBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    padding: 12,
+    borderRadius: 12,
+    gap: 10,
+    marginBottom: 20,
+  },
+  pendingText: {
+    flex: 1,
+    fontSize: 14,
+    fontWeight: '500',
   },
   statsContainer: {
     flexDirection: 'row',

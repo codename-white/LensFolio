@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const videoSource = 'https://jixmlnwysybvoevnieef.supabase.co/storage/v1/object/sign/Yaya/bowmaylada.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xYTJjYjhlZi1lNmQzLTQ4M2QtYWZlNi03NzI0ZWY0Nzg4NzgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJZYXlhL2Jvd21heWxhZGEubXA0IiwiaWF0IjoxNzcxMzE2NjkzLCJleHAiOjE4MDI4NTI2OTN9.29W-0RsDkdiFVjRpdlSH66DglFI2us91hvvFKemKK2A';
+const videoSource = require('../../src/assets/BG login/aifaceswap-Ep.3 .webm');
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');

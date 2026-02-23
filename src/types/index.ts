@@ -6,6 +6,7 @@ export interface User {
   full_name: string;
   avatar_url?: string;
   role: UserRole;
+  account_status: 'pending' | 'approved' | 'rejected';
   created_at: string;
 }
 

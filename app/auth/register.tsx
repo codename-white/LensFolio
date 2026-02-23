@@ -12,6 +12,7 @@ export default function RegisterScreen() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState<'model' | 'photographer'>('photographer');
   const { register, isLoading } = useAuth();
   const colorScheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
   const colors = Colors[colorScheme];
@@ -23,7 +24,7 @@ export default function RegisterScreen() {
     }
 
     try {
-      await register(email, password, fullName);
+      await register(email, password, fullName, role);
       // Success is handled by RootLayout redirection
     } catch (error: any) {
       Alert.alert('Registration Failed', error.message || 'Something went wrong.');
@@ -43,6 +44,30 @@ export default function RegisterScreen() {
           </View>
 
           <View style={styles.form}>
+            {/* Role Selector */}
+            <View style={styles.roleContainer}>
+                <Pressable 
+                    onPress={() => setRole('photographer')} 
+                    style={[
+                        styles.roleButton, 
+                        role === 'photographer' ? { backgroundColor: colors.gold } : { backgroundColor: colors.secondary }
+                    ]}
+                >
+                    <Ionicons name="camera" size={20} color={role === 'photographer' ? '#000' : colors.text} />
+                    <ThemedText style={[styles.roleText, role === 'photographer' ? { color: '#000' } : {}]}>Photographer</ThemedText>
+                </Pressable>
+                <Pressable 
+                    onPress={() => setRole('model')} 
+                    style={[
+                        styles.roleButton, 
+                        role === 'model' ? { backgroundColor: colors.gold } : { backgroundColor: colors.secondary }
+                    ]}
+                >
+                    <Ionicons name="sparkles" size={20} color={role === 'model' ? '#000' : colors.text} />
+                    <ThemedText style={[styles.roleText, role === 'model' ? { color: '#000' } : {}]}>Model</ThemedText>
+                </Pressable>
+            </View>
+
             <View style={styles.inputContainer}>
               <Ionicons name="person-outline" size={20} color={colors.icon} style={styles.inputIcon} />
               <TextInput
@@ -53,6 +78,7 @@ export default function RegisterScreen() {
                 onChangeText={setFullName}
               />
             </View>
+
 
             <View style={styles.inputContainer}>
               <Ionicons name="mail-outline" size={20} color={colors.icon} style={styles.inputIcon} />
@@ -131,6 +157,23 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: 20,
+  },
+  roleContainer: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 8,
+  },
+  roleButton: {
+    flex: 1,
+    height: 56,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  roleText: {
+    fontWeight: 'bold',
   },
   inputContainer: {
     flexDirection: 'row',
