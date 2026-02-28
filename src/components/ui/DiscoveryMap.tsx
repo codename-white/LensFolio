@@ -1,6 +1,6 @@
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { RecommendedLocation } from '@/types';
+import { ModelProfile, RecommendedLocation } from '@/types';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';

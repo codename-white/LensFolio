@@ -44,8 +44,7 @@ export default function LoginScreen() {
       <VideoView
         style={styles.videoBackground}
         player={player}
-        allowsFullscreen={false}
-        allowsPictureInPicture={false}
+        nativeControls={false}
       />
       <View style={styles.overlay} />
       
